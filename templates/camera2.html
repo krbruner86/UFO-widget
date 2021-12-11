@@ -1,0 +1,114 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="content-title font-size-22 text-center">Report a UFO</h1>
+    </div>
+</div>
+
+<div class="row row-eq-spacing">
+    <div class="col-8">
+        {#    code below is adapted from https://usefulangle.com/post/352/javascript-capture-image-from-camera #}
+        <div style="margin: 0px auto; width:500px; height:375px;">
+{#            <input type="file" accept="image/*">#}
+            <video id="video" width="500" height="375" autoplay></video>
+{#            <button id="click-photo">Click Photo</button>#}
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="row content-wrapper">
+            <div class="m-auto">
+                <a href="#modal-1" class="far fa-circle fa-7x text-decoration-none mt-20 pt-20" id="click-photo"></a>
+{#                <canvas id="canvas" width="320" height="240"></canvas>#}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block setting %}
+<div class="position-relative">
+    <div class="position-absolute bottom-0 bottom-sm-auto top-sm-0 right-0">
+        <div class="alert alert-secondary filled-dm w-400 mw-full" role="alert"> <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
+            <button class="close font-size-24" onclick="this.parentNode.classList.add('dispose')" type="button" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="row align-items-center"> <!-- align-items-center = align-items: center -->
+                <div class="col-sm-2">
+                    <div class="w-50 h-50 d-flex align-items-center rounded-circle bg-secondary hidden-dm"> <!-- w-50 = width: 5rem (50px), h-50 = height: 5rem (50px), d-flex = display: flex, align-items-center = align-items: center, rounded-circle = border-radius: 50%, bg-secondary = background-color: var(--secondary-color), hidden-dm = hidden in dark mode -->
+                        <div class="m-auto"> <!-- m-auto = margin: auto -->
+                            <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>
+                            <span class="sr-only">Lightbulb</span> <!-- sr-only = only for screen readers -->
+                        </div>
+                    </div>
+                    <div class="w-50 h-50 d-flex align-items-center rounded-circle bg-white hidden-lm"> <!-- w-50 = width: 5rem (50px), h-50 = height: 5rem (50px), d-flex = display: flex, align-items-center = align-items: center, rounded-circle = border-radius: 50%, bg-white = background-color: var(--white-bg-color), hidden-lm = hidden in light mode -->
+                        <div class="m-auto"> <!-- m-auto = margin: auto -->
+                            <i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i>
+                            <span class="sr-only">Lightbulb</span> <!-- sr-only = only for screen readers -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9 offset-sm-1 py-10"> <!-- py-10 = padding-top: 1rem (10px) and padding-bottom: 1rem (10px) -->
+                    <h4 class="alert-heading">Here's a tip for you</h4>
+                    Select allow on top left of screen. Tap the circle to capture your photo. Photo will automatically be uploaded to our website!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- First comes the modal -->
+<div class="modal" id="modal-1" tabindex="-1" role="dialog" data-overlay-dismissal-disabled="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <a href="#" class="close" role="button" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </a>
+        <div style="margin: 0px auto; width:320px; height:240px;">
+            <canvas style="margin: 0px auto;" id="canvas" width="320" height="240"></canvas>
+        </div>
+      <h5 class="modal-title">Are you Sure?</h5>
+      <p>
+        This is will upload your picture to the website.
+      </p>
+      <div class="text-right mt-20"> <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+        <a href="#" class="btn mr-5 text-danger" role="button">Cancel</a>
+        <a href="#" id="submit_btn" class="btn btn-primary" role="button">Upload</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let video = document.querySelector("#video");
+let click_button = document.querySelector("#click-photo");
+let canvas = document.querySelector("#canvas");
+let submit_button = document.getElementById("submit_btn")
+
+let jpeg_url;
+
+{#video object#}
+window.onload = async function() {
+   	let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+	video.srcObject = stream;
+};
+
+{#catpure when shutter button is pressed#}
+click_button.addEventListener('click', function() {
+   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    jpeg_url = canvas.toDataURL('image/jpeg');
+});
+
+{#send jpeg to python server#}
+submit_button.addEventListener('click', function() {
+    {#console.log(jpeg_url);#}
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", 'http://127.0.0.1:5000/upload', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+    value: jpeg_url
+}));
+})
+
+</script>
+{% endblock %}

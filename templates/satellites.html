@@ -1,0 +1,17 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <h1 class="content-title font-size-22 text-center">Satellites - Above You Right Now</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" id="ulDiv">
+            <h2 class="text-center font-size-18 font-weight-bolder">Satellite Name: &emsp; Satellite Bearing &emsp; - &emsp; Satellite Incline</h2>
+            <ul class="text" id="satList" style="list-style: none;">
+            </ul>
+        </div>
+    </div>
+    <script src="../static/scripts/satelliteRequest.js" type="text/javascript"  defer></script>
+{% endblock %}

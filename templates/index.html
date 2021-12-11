@@ -1,0 +1,68 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <h1 class="content-title font-size-22 text-center">UFO Widget</h1>
+        </div>
+    </div>
+    <!-- First row -->
+    <div class="row row-eq-spacing">
+        <div class="col-6">
+            <a href="{{ url_for('satellites')}}" class="text-decoration-none">
+                <div class="d-flex card bg-primary h-full align-items-center">
+                    <div class="d-flex flex-grow-1">
+                        <div class="flex-grow-1">
+                            <h2 class="font-size-18 text-center text-light font-weight-bold">Satellites</h2>
+                            <h3 class="font-size-14 text-center text-light">View satellite information above your horizon</h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6">
+            <a href="{{ url_for('spaceship') }}" class="text-decoration-none">
+                <div class="d-flex card bg-primary h-full align-items-center">
+                    <div class="d-flex flex-grow-1">
+                        <div class="flex-grow-1">
+                            <h2 class="font-size-18 text-center text-light font-weight-bold">Spaceship</h2>
+                            <h3 class="font-size-14 text-center text-light">View your spaceship sensor readings</h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- Second row -->
+    <div class="row row-eq-spacing">
+        <div class="col-6">
+            <a href="{{ url_for('device') }}" class="text-decoration-none">
+                <div class="d-flex card bg-primary h-full align-items-center">
+                    <div class="d-flex flex-grow-1">
+                        <div class="flex-grow-1">
+                            <h2 class="font-size-18 text-center text-light font-weight-bold">Device Readings</h2>
+                            <h3 class="font-size-14 text-center text-light">View the device sensor readings</h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6">
+            <a href="{{ url_for('camera') }}" class="text-decoration-none">
+                <div class="d-flex card bg-primary h-full align-items-center">
+                    <div class="d-flex flex-grow-1">
+                        <div class="flex-grow-1">
+                            <h3 class="font-size-18 text-center text-light font-weight-bold">Report a UFO</h3>
+                            <h3 class="font-size-14 text-center text-light">Capture a photo of a UFO and report it to our website</h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <script src="../static/scripts/indexOptions.js" type="text/javascript"  defer></script>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block setting %}
+{% endblock %}
