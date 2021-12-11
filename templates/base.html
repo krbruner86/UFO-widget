@@ -1,0 +1,81 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ title }}</title>
+
+    <meta name="description" content={{ description }}>
+
+    <meta property="og:title" content="A Basic UFO device">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="../static/css/halfmoon.css">
+    <link rel="stylesheet" href="../static/css/halfmoon-variables.css">
+
+    <script src="https://kit.fontawesome.com/d66a551b87.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body data-set-preferred-mode-onload="true">
+    <div class="page-wrapper w-800 mw-full">
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <div class="content">
+                    {%  block content %}
+                    {% endblock %}
+
+                    {% block setting %}
+                    <div class="row ">
+                        <div class="m-auto">
+                            <div class="dropdown with-arrow">
+                                <button class="btn" data-toggle="dropdown" type="button" id="..." aria-haspopup="true" aria-expanded="false">
+                                Advanced Options <i class="fa fa-angle-down ml-5" aria-hidden="true"></i> <!-- ml-5 = margin-left: 0.5rem (5px) -->
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="dropdown-toggle-btn-4">
+                                    <div class="dropdown-content p-20">
+                                        <form action="" method="">
+                                            <div class="form-group">
+                                                <div class="custom-switch">
+                                                    <input type="checkbox" id="switch-1" value="">
+                                                    <label for="switch-1">Real-Time Updates</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="custom-switch">
+                                                    <input type="checkbox" id="switch-2" value="">
+                                                    <label for="switch-2">Save setting across site</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock %}
+
+                    {% block footer %}
+                    <div class="position-relative">
+                        <div class="position-absolute bottom-0 bottom-sm-auto bottom-sm-0 left-0">
+                            <a href="{{ url_for('index')}}" class="hyperlink">
+                                <div class="card bg-primary">
+                                    <h3 class="font-size-16 text-center text-light">Home</h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/scripts/halfmoon.js" type="text/javascript"></script>
+    <script src="../static/scripts/options.js" type="text/javascript"></script>
+</body>
+</html>
